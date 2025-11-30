@@ -171,7 +171,7 @@ mjx-container[display="true"] {
             Looking more closely at how LBL behaves, we find that the token allocation fractions \(f\) and gating probabilities \(p\) exhibit different patterns in lower versus higher layers. In higher layers (Layer 52), \(f\) becomes roughly uniform while \(p\) remains non-uniform (Figure 2c). In lower layers (Layer 0), the opposite happens (Figure 2b): \(p\) moves toward uniformity but \(f\) stays uneven, which breaks the intended load balance. Despite this, the LBL still reaches its minimum.
           </p>
             <div style="text-align: center; margin-top: 30px;">
-            <img src="./static/images/lbl.jpg" style="width: 90%; border: none;">
+            <img src="./static/images/lbl.jpg" style="width: 95%; border: none;">
             </div>
           <p style="text-align: center; font-size: 0.9em; margin-top: 5px; margin-bottom: 30px;">
             Figure 2: (a) Relative deviation from uniform token allocation in Layer 0. (b) and (c) show the distribution of token allocation fraction \(f\) and gating probability \(p\) across all experts in Layer 0 and Layer 52, respectively.
@@ -200,14 +200,14 @@ mjx-container[display="true"] {
             <strong>Pre-training Evaluation:</strong> As shown in Table 1, despite having only 0.5B active parameters, Sigma-MoE-Tiny-Base still outperforms other tiny base models on most general benchmarks. On math and coding tasks, even without specialized training data, it delivers competitive performance compared to larger models like Qwen3-1.7B.
           </p>
           <div style="text-align: center; margin-top: 30px;">
-            <img src="./static/images/eval_base.jpg" style="width: 75%; border: none;">
+            <img src="./static/images/eval_base.jpg" style="width: 80%; border: none;">
             <p style="font-size: 0.9em; margin-top: 5px; margin-bottom: 30px;">Table 1: Performance comparison among Sigma-MoE-Tiny-Base and other base models.</p>
           </div>
           <p>
             <strong>Post-training Evaluation:</strong> Table 2 shows that post-trained Sigma-MoE-Tiny with only 0.5B activated parameters can match or surpass much larger dense and MoE models, highlighting the effectiveness of super-high MoE sparsity in enhancing generalization and reasoning efficiency.
           </p>
           <div style="text-align: center; margin-top: 30px;">
-            <img src="./static/images/eval_inst.jpg" style="width: 90%; border: none;">
+            <img src="./static/images/eval_inst.jpg" style="width: 95%; border: none;">
             <p style="font-size: 0.9em; margin-top: 5px; margin-bottom: 30px;">Table 2: Performance Comparison among Sigma-MoE-Tiny and baseline models.</p>
           </div>
         </div>
@@ -230,7 +230,7 @@ mjx-container[display="true"] {
       Notably, although converting to the target sparsity loses 0.15B activated parameters (approximately 25%), the resulting performance is largely preserved.
           </p>
           <div style="text-align: center; margin-top: 30px;">
-            <img src="./static/images/analysis1.jpg" style="width: 75%; border: none;">
+            <img src="./static/images/analysis1.jpg" style="width: 80%; border: none;">
             <p style="font-size: 0.9em; margin-top: 5px; margin-bottom: 30px;">Table 3: Effect of progressive sparsification scheduling on model performance.</p>
           </div>
         </div>
@@ -242,7 +242,7 @@ mjx-container[display="true"] {
             Further analysis reveals that the bias terms introduced by this strategy in the lower layers will continually increase as training progresses, eventually dominating the gating scores. As a result, the expert with the highest bias receives the overwhelming majority of tokens.
           </p>
             <div style="text-align: center; margin-top: 30px;">
-            <img src="./static/images/analysis2.jpg" style="width: 75%; border: none;">
+            <img src="./static/images/analysis2.jpg" style="width: 80%; border: none;">
             <p style="font-size: 0.9em; margin-top: 5px; margin-bottom: 30px;">Figure 3: Comparison of different load balancing strategies.</p>
           </div>
           <!-- <p> 
@@ -284,7 +284,7 @@ mjx-container[display="true"] {
             As shown in Figure 4, applying top-1 LBL significantly improves load balancing under super-high sparsity, steadily approaching a uniform token allocation. However, we also find that overly balanced expert utilization may sacrifice model performance. We attribute this issue to the inherent trade-off between load balance and performance, and leave improving this trade-off as an important direction for future work.
             </p>
             <div style="text-align: center; margin-top: 30px;">
-            <img src="./static/images/analysis3.jpg" style="width: 75%; border: none;">
+            <img src="./static/images/analysis3.jpg" style="width: 80%; border: none;">
             <p style="font-size: 0.9em; margin-top: 5px; margin-bottom: 30px;">Figure 4: Comparison between top-1 LBL and conventional LBL.</p>
             </div>
         </div>
