@@ -165,19 +165,19 @@ mjx-container[display="true"] {
         <h2 class="title is-3">Challenges in Load Balancing</h2>
         <div class="content has-text-justified">
           <p>
-            We observe that simply applying the standard load balancing loss (LBL) to an extremely sparse MoE architecture reveals a significant drawback: <strong>routing collapse in the lower layers</strong>. In Layer 0, the min-loaded expert gets almost no tokens, while the max-loaded expert receives nearly 3&times; the tokens expected under uniform allocation (Figure 2a).
+            We observe that simply applying the standard load balancing loss (LBL) to an extremely sparse MoE architecture reveals a significant drawback: <strong>routing collapse in the lower layers</strong>. In Layer 0, the min-loaded expert gets almost no tokens, while the max-loaded expert receives nearly 3\(\times\) the tokens expected under uniform allocation (Figure 2a).
           </p>
           <p>  
-            Looking more closely at how LBL behaves, we find that the token allocation fractions <i>f</i> and gating probabilities <i>p</i> exhibit different patterns in lower versus higher layers. In higher layers (Layer 52), <i>f</i> becomes roughly uniform while <i>p</i> remains non-uniform (Figure 2c). In lower layers (Layer 0), the opposite happens (Figure 2b): <i>p</i> moves toward uniformity but <i>f</i> stays uneven, which breaks the intended load balance. Despite this, the LBL still reaches its minimum.
+            Looking more closely at how LBL behaves, we find that the token allocation fractions \(f\) and gating probabilities \(p\) exhibit different patterns in lower versus higher layers. In higher layers (Layer 52), \(f\) becomes roughly uniform while \(p\) remains non-uniform (Figure 2c). In lower layers (Layer 0), the opposite happens (Figure 2b): \(p\) moves toward uniformity but \(f\) stays uneven, which breaks the intended load balance. Despite this, the LBL still reaches its minimum.
           </p>
             <div style="text-align: center; margin-top: 30px;">
             <img src="./static/images/lbl.jpg" style="width: 90%; border: none;">
             </div>
           <p style="text-align: center; font-size: 0.9em; margin-top: 5px; margin-bottom: 30px;">
-            Figure 2: (a) Relative deviation from uniform token allocation in Layer 0. (b) and (c) show the distribution of token allocation fraction <i>f</i> and gating probability <i>p</i> across all experts in Layer 0 and Layer 52, respectively.
+            Figure 2: (a) Relative deviation from uniform token allocation in Layer 0. (b) and (c) show the distribution of token allocation fraction \(f\) and gating probability \(p\) across all experts in Layer 0 and Layer 52, respectively.
           </p>
           <p>
-            We attribute this deficiency to inherent characteristics of the LBL itself. The desired goal of this loss is to push the token allocation fractions <i>f</i> toward a uniform distribution. However, LBL can in fact reach its minimum by making either <i>f</i> or <i>p</i> uniform. Under high sparsity, routing tokens in the lower layers becomes more difficult. As a result, the LBL optimization takes a shortcut by driving <i>p</i> toward uniformity, resulting in an unintended minimum that fails to achieve true load balance.
+            We attribute this deficiency to inherent characteristics of the LBL itself. The desired goal of this loss is to push the token allocation fractions \(f\) toward a uniform distribution. However, LBL can in fact reach its minimum by making either \(f\) or \(p\) uniform. Under high sparsity, routing tokens in the lower layers becomes more difficult. As a result, the LBL optimization takes a shortcut by driving \(p\) toward uniformity, resulting in an unintended minimum that fails to achieve true load balance.
           </p>
           <!-- <h3 class="title is-4">Progressive Sparsification Scheduling</h3> -->
           <p>
@@ -238,7 +238,7 @@ mjx-container[display="true"] {
         <h3 class="title is-4" style="text-align: left;">Comparison of Different Load Balancing Strategies</h3>
           <p>
             We also experimented with an auxiliary-loss-free approach to maintain load balancing, which is adopted in DeepSeek-V3.
-            However, we observe that this loss-free approach can cause significant load imbalance in the lower layers under high MoE sparsity. As shown in Figure 3, introducing this loss-free balancing strategy leads to the min-loaded expert consistently receiving zero tokens after 2K training steps, while the max-loaded expert is allocated nearly 40&times; the tokens expected under uniform allocation.
+            However, we observe that this loss-free approach can cause significant load imbalance in the lower layers under high MoE sparsity. As shown in Figure 3, introducing this loss-free balancing strategy leads to the min-loaded expert consistently receiving zero tokens after 2K training steps, while the max-loaded expert is allocated nearly 40\(\times\) the tokens expected under uniform allocation.
             Further analysis reveals that the bias terms introduced by this strategy in the lower layers will continually increase as training progresses, eventually dominating the gating scores. As a result, the expert with the highest bias receives the overwhelming majority of tokens.
           </p>
             <div style="text-align: center; margin-top: 30px;">
